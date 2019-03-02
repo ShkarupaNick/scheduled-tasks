@@ -1,0 +1,29 @@
+{
+  "name": "redis-scheduled-tasks",
+  "version": "1.0.0",
+  "description": "This Application can schedule task for some time or with some delay",
+  "scripts": {
+    "start": "node ./src/runner.js",
+    "lint": "eslint --fix .",
+    "pretest": "npm run lint",
+    "dev": "LOG_LEVEL=trace DEBUG=ioredis:* NODE_ENV=development node ./src/runner.js",
+    "dev2": "LOG_LEVEL=trace DEBUG=ioredis:* NODE_ENV=development node ./src/runner.js"
+  },
+  "author": "Shkarupa Nick",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "1.18.3",
+    "bunyan": "1.8.12",
+    "bunyan-format": "0.2.1",
+    "express": "4.16.4",
+    "ioredis": "4.6.2",
+    "microtime": "3.0.0",
+    "nconf": "0.10.0",
+    "uuid": "3.3.2"
+  },
+  "devDependencies": {
+    "eslint": "5.15.0",
+    "eslint-config-airbnb-base": "13.1.0",
+    "eslint-plugin-import": "2.16.0"
+  }
+}
