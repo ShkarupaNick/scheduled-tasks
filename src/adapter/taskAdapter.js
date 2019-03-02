@@ -75,7 +75,7 @@ module.exports = class TaskAdapter {
     } else {
       await this.cli.rpush(processQueueName, item);
     }
-    return { scheduletAt: time };
+    return { scheduledAt: new Date(time * 1000).toISOString() };
   }
 
   async publishTaskAtTime(message, time) {
@@ -86,6 +86,6 @@ module.exports = class TaskAdapter {
     } else {
       await this.cli.rpush(processQueueName, item);
     }
-    return { scheduletAt: time };
+    return { scheduledAt: new Date(time).toISOString() };
   }
 };

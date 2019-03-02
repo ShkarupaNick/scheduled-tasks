@@ -47,7 +47,7 @@ function createRedisClient() {
     const ioredis = new Redis(redisUrl);
     ioredis
       .on('error', (e) => {
-        console.error('ioredis error', e);
+        log.error('ioredis error', e);
         reject(e);
       })
       .on('connect', () => {

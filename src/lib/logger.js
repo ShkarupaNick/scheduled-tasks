@@ -20,7 +20,7 @@ const { name: appName } = require('../../package');
 
 function getLogger() {
   let logger;
-  return function () {
+  return function createLogger() {
     if (!logger) {
       logger = bunyan.createLogger({
         name: appName,

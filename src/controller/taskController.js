@@ -33,7 +33,7 @@ module.exports = {
       res.status(400).send(errMsg);
     }
     const result = await req.taskAdapter.publishTaskAtTime(req.body.message,
-      req.body.scheduledTimeDelay);
+      time);
     res.send(JSON.stringify(result));
   },
 };
