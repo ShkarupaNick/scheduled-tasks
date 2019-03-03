@@ -1,7 +1,7 @@
 const log = require('../lib/logger')();
 
 module.exports = {
-  async publishTaskAfterDelay(req, res) {
+  async echoAfterDelay(req, res) {
     if (!req.body.message) {
       const errMsg = 'message property is required';
       log.error(errMsg);
@@ -13,12 +13,13 @@ module.exports = {
       res.status(400).send();
       return;
     }
+    log.info('Got POST request: %j', req.body);
     const result = await req.taskAdapter.publishTaskAfterDelay(req.body.message,
       req.body.scheduledTimeDelay);
     res.send(JSON.stringify(result));
   },
 
-  async publishTaskAtTime(req, res) {
+  async echoAtTime(req, res) {
     if (!req.body.message) {
       res.status(400).send('Bad Request. message property is required');
     }
@@ -32,6 +33,7 @@ module.exports = {
       log.error(errMsg);
       res.status(400).send(errMsg);
     }
+    log.info('Got POST request: %j', req.body);
     const result = await req.taskAdapter.publishTaskAtTime(req.body.message,
       time);
     res.send(JSON.stringify(result));

@@ -17,6 +17,7 @@
     "bunyan-format": "0.2.1",
     "express": "4.16.4",
     "ioredis": "4.6.2",
+    "lodash": "4.17.11",
     "microtime": "3.0.0",
     "nconf": "0.10.0",
     "uuid": "3.3.2"
