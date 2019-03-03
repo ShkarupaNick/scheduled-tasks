@@ -6,8 +6,7 @@
     "start": "node ./src/runner.js",
     "lint": "eslint --fix .",
     "pretest": "npm run lint",
-    "dev": "LOG_LEVEL=trace DEBUG=ioredis:* NODE_ENV=development node ./src/runner.js",
-    "dev2": "LOG_LEVEL=trace DEBUG=ioredis:* NODE_ENV=development node ./src/runner.js"
+    "dev": "LOG_LEVEL=trace DEBUG=ioredis:* NODE_ENV=development node ./src/runner.js"
   },
   "author": "Shkarupa Nick",
   "license": "ISC",
