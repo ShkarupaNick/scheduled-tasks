@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "This Application can schedule task for some time or with some delay",
   "scripts": {
-    "start": "node ./src/runner.js",
+    "start": "NODE_ENV=production node ./src/runner.js",
     "lint": "eslint --fix .",
     "pretest": "npm run lint",
+    "test": "echo \"need to be covered by unit tests (https://github.com/ShkarupaNick/scheduled-tasks/issues/2)\"",
     "dev": "LOG_LEVEL=trace DEBUG=ioredis:* NODE_ENV=development node ./src/runner.js"
   },
   "author": "Shkarupa Nick",
@@ -24,6 +25,10 @@
   "devDependencies": {
     "eslint": "5.15.0",
     "eslint-config-airbnb-base": "13.1.0",
-    "eslint-plugin-import": "2.16.0"
+    "eslint-plugin-import": "2.16.0",
+    "sinon": "7.2.6",
+    "mocha": "6.0.2",
+    "chai": "4.2.0",
+    "supertest": "3.4.2"
   }
 }

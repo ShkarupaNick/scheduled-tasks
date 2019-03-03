@@ -6,13 +6,18 @@ const config = require('../config');
 const log = require('./lib/logger')();
 
 const redisUrl = config.get('REDIS_URL');
-const TaskAdapter = require('./adapter/taskAdapter');
+const { TaskAdapter } = require('./adapter');
 const { taskController } = require('./controller');
 const { filterRequest, requestValidation } = require('./middleware');
 
-function startExpressServer(taskAdapter) {
+
+let app;
+let ioredis;
+let taskAdapter;
+
+function startExpressServer() {
   return new Promise((resolve, reject) => {
-    const app = express();
+    app = express();
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({
       extended: true,
@@ -42,21 +47,21 @@ function startExpressServer(taskAdapter) {
       });
     });
 
-    app.listen(config.get('PORT') || 3000, () => {
-      log.info('express was successfully started');
-      resolve(app);
-    });
-
     app.on('error', (err) => {
       log.error(err, 'server startup failed');
       reject(err);
     });
+    app.listen(config.get('PORT') || 3000, () => {
+      log.info('express was successfully started');
+      resolve(app);
+    });
+    return app;
   });
 }
 
 function createRedisClient() {
   return new Promise((resolve, reject) => {
-    const ioredis = new Redis(redisUrl);
+    ioredis = new Redis(redisUrl);
     ioredis
       .on('error', (e) => {
         log.error('ioredis error', e);
@@ -72,17 +77,27 @@ function createRedisClient() {
   });
 }
 
-function runAdapter(ioredis) {
-  const taskAdapter = new TaskAdapter(ioredis);
+function runAdapter() {
+  taskAdapter = new TaskAdapter(ioredis);
   taskAdapter.pollWaitingQueue();
   taskAdapter.pollProcessQueue();
   return taskAdapter;
 }
 
+function getTaskAdapter() {
+  if (!taskAdapter) {
+    return runAdapter();
+  }
+  return taskAdapter;
+}
+
 function runApplication() {
   return createRedisClient()
-    .then(ioredis => runAdapter(ioredis))
-    .then(taskAdapter => startExpressServer(taskAdapter));
+    .then(() => runAdapter(ioredis))
+    .then(() => startExpressServer(taskAdapter));
 }
 
 module.exports.run = runApplication;
+module.exports.getTaskAdapter = getTaskAdapter;
+module.exports.startExpressServer = startExpressServer;
+module.exports.createRedisClient = createRedisClient;

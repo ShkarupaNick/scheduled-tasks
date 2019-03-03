@@ -35,7 +35,7 @@ module.exports = {
     }
     log.info('Got POST request: %j', req.body);
     const result = await req.taskAdapter.publishTaskAtTime(req.body.message,
-      time);
+      time / 1000);
     res.send(JSON.stringify(result));
   },
 };
