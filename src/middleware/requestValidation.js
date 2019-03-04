@@ -1,7 +1,9 @@
 const _ = require('lodash');
 const { middlerifyAsync } = require('../lib/utils');
+const log = require('../lib/logger')();
 
 function validate(callType, inputBody) {
+  log.info('Got request: %j', inputBody);
   const requiredProps = {
     echoAtTime: [
       'echoAtTime',

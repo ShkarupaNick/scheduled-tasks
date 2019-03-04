@@ -2,11 +2,13 @@
   "name": "redis-scheduled-tasks",
   "version": "1.0.0",
   "description": "This Application can schedule task for some time or with some delay",
+  "repository": "https://github.com/ShkarupaNick/scheduled-tasks.git",
   "scripts": {
     "start": "NODE_ENV=production node ./src/runner.js",
     "lint": "eslint --fix .",
     "pretest": "npm run lint",
-    "test": "echo \"need to be covered by unit tests (https://github.com/ShkarupaNick/scheduled-tasks/issues/2)\"",
+    "test": "LOG_LEVEL=trace NODE_ENV=test mocha ./spec/integration",
+    "intTest": "LOG_LEVEL=trace NODE_ENV=docker mocha ./spec/integration",
     "dev": "LOG_LEVEL=trace DEBUG=ioredis:* NODE_ENV=development node ./src/runner.js"
   },
   "author": "Shkarupa Nick",

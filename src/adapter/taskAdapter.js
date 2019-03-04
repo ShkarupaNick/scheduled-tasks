@@ -9,9 +9,11 @@ const waitQueueName = config.get('WAIT_QUEUE_NAME');
 const waitqueuebatchsize = config.get('WAIT_QUEUE_BATCH_SIZE');
 const brpoplpushTimeout = config.get('PROCESS_BRPOPLPUSH_TIMEOUT_S');
 const processQueuePollingFrequency = config.get(
-  'PROCESS_QUEUE_POLLING_FREQUENCY_MS');
+  'PROCESS_QUEUE_POLLING_FREQUENCY_MS',
+);
 const waitingQueuePollingFrequency = config.get(
-  'WAITING_QUEUE_POLLING_FREQUENCY_MS');
+  'WAITING_QUEUE_POLLING_FREQUENCY_MS',
+);
 let pollWaitingQueueCounter = 0;
 let pollProcessQueueCounter = 0;
 module.exports = class TaskAdapter {
@@ -98,6 +100,12 @@ module.exports = class TaskAdapter {
     } else {
       await this.cli.rpush(processQueueName, item);
     }
-    return { scheduledAt: new Date(time).toISOString() };
+    return { scheduledAt: new Date(time * 1000).toISOString() };
+  }
+
+  async disconnectAll() {
+    await this.cli.disconnect();
+    await this.proccessTaskCli.disconnect();
+    await this.pollWaitingTaskCli.disconnect();
   }
 };

@@ -49,3 +49,10 @@ npm start
 |WAITING_QUEUE_POLLING_FREQUENCY_MS| Polling period for waiting sorted set|
 |WAIT_QUEUE_BATCH_SIZE| Batch size (Number of records, which can be processed by one poll)|
 
+
+##### Limitations:
+npm test can be used only with redis local instance
+
+##### TODO list:
+1) migrate local redis instance to docker using docker-compose feature
+2) full covering by unit test

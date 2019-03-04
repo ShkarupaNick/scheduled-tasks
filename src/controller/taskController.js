@@ -16,6 +16,8 @@ module.exports = {
     log.info('Got POST request: %j', req.body);
     const result = await req.taskAdapter.publishTaskAfterDelay(req.body.message,
       req.body.scheduledTimeDelay);
+    log.trace('Response of echoAfterDelay controller: %j', result);
+    res.set('content-type', 'application/json');
     res.send(JSON.stringify(result));
   },
 
@@ -33,9 +35,10 @@ module.exports = {
       log.error(errMsg);
       res.status(400).send(errMsg);
     }
-    log.info('Got POST request: %j', req.body);
     const result = await req.taskAdapter.publishTaskAtTime(req.body.message,
       time / 1000);
+    log.trace('Response of echoAtTime controller: %j', result);
+    res.set('content-type', 'application/json');
     res.send(JSON.stringify(result));
   },
 };

@@ -10,7 +10,6 @@ const { TaskAdapter } = require('./adapter');
 const { taskController } = require('./controller');
 const { filterRequest, requestValidation } = require('./middleware');
 
-
 let app;
 let ioredis;
 let taskAdapter;
@@ -51,6 +50,11 @@ function startExpressServer() {
       log.error(err, 'server startup failed');
       reject(err);
     });
+
+    if (process.env.NODE_ENV === 'test') {
+      resolve(app);
+      return app;
+    }
     app.listen(config.get('PORT') || 3000, () => {
       log.info('express was successfully started');
       resolve(app);
@@ -79,9 +83,19 @@ function createRedisClient() {
 
 function runAdapter() {
   taskAdapter = new TaskAdapter(ioredis);
-  taskAdapter.pollWaitingQueue();
-  taskAdapter.pollProcessQueue();
+  if (process.env.NODE_ENV !== 'test') {
+    taskAdapter.pollWaitingQueue();
+    taskAdapter.pollProcessQueue();
+  }
   return taskAdapter;
+}
+
+function getApp() {
+  return app;
+}
+
+function getRedisCli() {
+  return ioredis;
 }
 
 function getTaskAdapter() {
@@ -99,5 +113,7 @@ function runApplication() {
 
 module.exports.run = runApplication;
 module.exports.getTaskAdapter = getTaskAdapter;
+module.exports.getApp = getApp;
+module.exports.getRedisCli = getRedisCli;
 module.exports.startExpressServer = startExpressServer;
 module.exports.createRedisClient = createRedisClient;
