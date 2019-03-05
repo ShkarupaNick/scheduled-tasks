@@ -75,7 +75,7 @@ describe('routes', () => {
     request(expressApp)
       .post('/tasks/echoAtTime')
       .send(inputMessage)
-      .expect(200, { scheduledAt: '2099-03-04T13:16:37.413Z' })
+      .expect(200, { scheduledAt: '2099-03-04T15:16:37.413Z' })
       .end(async (err) => {
         if (err) {
           return done(err);
@@ -96,7 +96,7 @@ describe('routes', () => {
     request(expressApp)
       .post('/tasks/echoAtTime')
       .send(inputMessage)
-      .expect(200, { scheduledAt: '2001-03-04T13:16:37.413Z' })
+      .expect(200, { scheduledAt: '2001-03-04T15:16:37.413Z' })
       .end(async (err) => {
         if (err) {
           return done(err);

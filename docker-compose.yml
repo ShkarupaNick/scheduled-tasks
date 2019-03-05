@@ -1,0 +1,21 @@
+version: '3.7'
+services:
+  redis:
+    image: redis
+    command: redis-server /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
+      - ./redis/data:/data
+    ports:
+      - "6380:6380"
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    deploy:
+      mode: replicated
+      replicas: 3
+    depends_on:
+      - redis
+    ports:
+      - "127.0.0.1:3001-3003:3000"

@@ -1,6 +1,6 @@
 {
 	"PORT": "3000",
-	"REDIS_URL": "redis:6379",
+	"REDIS_URL": "redis://redis:6380/0",
 	"PROCESS_QUEUE_NAME": "testProcessQueue",
 	"BACKUP_QUEUE_NAME": "testBackupQueue",
 	"WAIT_QUEUE_NAME": "testWaitingQueue",

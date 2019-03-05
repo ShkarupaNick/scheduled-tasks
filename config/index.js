@@ -4,8 +4,8 @@ const DEFAULTS = require('./default.json');
 
 const ENVIRONMENT = process.env.NODE_ENV;
 
-nconf.file(path.resolve(__dirname, `${ENVIRONMENT}.json`));
 nconf.env();
+nconf.file(path.resolve(__dirname, `${ENVIRONMENT}.json`));
 nconf.defaults(DEFAULTS);
 nconf.required([
   'PORT',

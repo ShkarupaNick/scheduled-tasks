@@ -7,8 +7,8 @@
     "start": "NODE_ENV=production node ./src/runner.js",
     "lint": "eslint --fix .",
     "pretest": "npm run lint",
-    "test": "LOG_LEVEL=trace NODE_ENV=test mocha ./spec/integration",
-    "intTest": "LOG_LEVEL=trace NODE_ENV=docker mocha ./spec/integration",
+    "test": "LOG_LEVEL=trace NODE_ENV=test ./node_modules/mocha ./spec/integration",
+    "intTest": "LOG_LEVEL=trace NODE_ENV=testDocker ./node_modules/mocha/bin/mocha ./spec/integration\n",
     "dev": "LOG_LEVEL=trace DEBUG=ioredis:* NODE_ENV=development node ./src/runner.js"
   },
   "author": "Shkarupa Nick",

@@ -83,7 +83,7 @@ function createRedisClient() {
 
 function runAdapter() {
   taskAdapter = new TaskAdapter(ioredis);
-  if (process.env.NODE_ENV !== 'test') {
+  if (!process.env.NODE_ENV.includes('test')) {
     taskAdapter.pollWaitingQueue();
     taskAdapter.pollProcessQueue();
   }
