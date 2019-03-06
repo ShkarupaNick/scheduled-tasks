@@ -54,5 +54,40 @@ npm start
 npm test can be used only with redis local instance
 
 ##### TODO list:
-1) migrate local redis instance to docker using docker-compose feature
-2) full covering by unit test
+1) full covering by unit test
+
+
+##How to run application using Docker compose
+
+[Compose](https://docs.docker.com/compose/overview/) is a tool for defining and running multi-container Docker applications. 
+With Compose, you use a YAML file to configure your application’s services. 
+Then, with a single command, you create and start all the services from your configuration. 
+
+By default application works with next [docker compose configuration](./docker-compose.yml): 
+```yaml
+version: '3.7'
+services:
+  redis:
+    image: redis
+    command: redis-server /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
+      - ./redis/data:/data
+    ports:
+      - "6380:6380"
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    deploy:
+      mode: replicated
+      replicas: 3
+    depends_on:
+      - redis
+    ports:
+      - "127.0.0.1:3001-3003:3000"
+```
+
+You can change `replicas` property of app container for managing number of application instances.
+
+You can use docker-compose [run](https://docs.docker.com/compose/reference/run/) command for container starting.
