@@ -1,6 +1,6 @@
 {
 	"PORT": "8080",
-	"REDIS_URL": "localhost:6379",
+	"REDIS_URL": "redis://localhost:6379/0",
 	"PROCESS_QUEUE_NAME": "testProcessQueue",
 	"BACKUP_QUEUE_NAME": "testBackupQueue",
 	"WAIT_QUEUE_NAME": "testWaitingQueue",
