@@ -8,9 +8,11 @@ Example of request:
 ```json
 {
 	"message":"task message",
-	"echoAtTime": "2019-03-04 09:54:00.032"
+	"echoAtTime": "2019-03-04 09:54:00.032+02"
 }
 ```
+
+`We should understand  - if we specify echoAtTime without time zone (+02) UTC time zone (+00) will be used by default`
 
 ## POST /tasks/echoAfterDelay
 Example of request:
@@ -21,19 +23,19 @@ Example of request:
 }
 ```
 
-For running application in TRACE mode use command below:
+For running application in DEVELOPMENT TRACE mode use command below:
 
 ```bash
- npm run devTrace
+ npm run dev
  ```
- In this case will be used `develompent.json` configuration file.
+ In this case will be used `develompent.json` configuration file or environment variables.
  You can find example of configuration file in [development.example.json](./config/development.example.json)
  
  For running application in production mode use next command:
  ```bash
 npm start
 ```
- In this case will be used `production.json` configuration file.
+ In this case will be used `production.json` configuration file or environment variables.
 
 ## Configuration properties
 
@@ -81,8 +83,8 @@ You can change `replicas` property of app container for managing number of appli
 You can use docker-compose [run](https://docs.docker.com/compose/reference/run/) command for container starting.
 
 
-Also you can easy scale application using next command:
-`docker-compose scale redis=1 app=3`
+Also you can easy scale application using next commands:
+`docker-compose up --scale app=3`
 
 ##### Limitations:
 You can use only one redis instance (scale redis=1). Redis cluster is not configured yet.
