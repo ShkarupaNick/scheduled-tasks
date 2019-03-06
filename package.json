@@ -1,0 +1,37 @@
+{
+  "name": "redis-scheduled-tasks",
+  "version": "1.0.0",
+  "description": "This Application can schedule task for some time or with some delay",
+  "repository": "https://github.com/ShkarupaNick/scheduled-tasks.git",
+  "scripts": {
+    "start": "NODE_ENV=production node ./src/runner.js",
+    "lint": "eslint --fix .",
+    "pretest": "npm run lint",
+    "test": "LOG_LEVEL=trace NODE_ENV=test mocha ./spec/integration",
+    "test:integration": "LOG_LEVEL=trace NODE_ENV=test ./node_modules/mocha/bin/mocha ./spec/integration/** --timeout 50000",
+    "dev": "LOG_LEVEL=trace DEBUG=ioredis:* NODE_ENV=development node ./src/runner.js"
+  },
+  "author": "Shkarupa Nick",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "1.18.3",
+    "bunyan": "1.8.12",
+    "bunyan-format": "0.2.1",
+    "date-format": "2.0.0",
+    "express": "4.16.4",
+    "ioredis": "4.6.2",
+    "lodash": "4.17.11",
+    "microtime": "3.0.0",
+    "nconf": "0.10.0",
+    "uuid": "3.3.2"
+  },
+  "devDependencies": {
+    "eslint": "5.15.0",
+    "eslint-config-airbnb-base": "13.1.0",
+    "eslint-plugin-import": "2.16.0",
+    "sinon": "7.2.6",
+    "mocha": "6.0.2",
+    "chai": "4.2.0",
+    "supertest": "3.4.2"
+  }
+}
