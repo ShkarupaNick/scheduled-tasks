@@ -69,12 +69,12 @@ describe('routes', () => {
   it('planning for future', (done) => {
     const inputMessage = {
       message: 'Test Message',
-      echoAtTime: '2099-03-04 15:16:37',
+      echoAtTime: '2099-03-04 15:16:37.123',
     };
     request(expressApp)
       .post('/tasks/echoAtTime')
       .send(inputMessage)
-      .expect(200, { scheduledAt: '2099-03-04 15:16:37' })
+      .expect(200, { scheduledAt: '2099-03-04 15:16:37.123' })
       .end(async (err) => {
         if (err) {
           return done(err);
@@ -90,12 +90,12 @@ describe('routes', () => {
   it('planning for past', (done) => {
     const inputMessage = {
       message: 'Test Message',
-      echoAtTime: '2001-03-04 15:16:37',
+      echoAtTime: '2001-03-04 15:16:37.456',
     };
     request(expressApp)
       .post('/tasks/echoAtTime')
       .send(inputMessage)
-      .expect(200, { scheduledAt: '2001-03-04 15:16:37' })
+      .expect(200, { scheduledAt: '2001-03-04 15:16:37.456' })
       .end(async (err) => {
         if (err) {
           return done(err);

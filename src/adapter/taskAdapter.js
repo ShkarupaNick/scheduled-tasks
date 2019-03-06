@@ -1,9 +1,8 @@
 const uuidv1 = require('uuid/v1');
-const dateformat = require('dateformat');
+const format = require('date-format');
 const microtime = require('microtime');
 const log = require('../lib/logger')();
 const config = require('../../config');
-
 
 const processQueueName = config.get('PROCESS_QUEUE_NAME');
 const backupQueueName = config.get('BACKUP_QUEUE_NAME');
@@ -91,7 +90,10 @@ module.exports = class TaskAdapter {
     } else {
       await this.cli.rpush(processQueueName, item);
     }
-    return { scheduledAt: dateformat(new Date(time * 1000), 'yyyy-mm-dd HH:MM:ss') };
+    return {
+      scheduledAt: format.asString('yyyy-MM-dd hh:mm:ss.SSS',
+        new Date(time * 1000)),
+    };
   }
 
   async publishTaskAtTime(message, time) {
@@ -102,7 +104,10 @@ module.exports = class TaskAdapter {
     } else {
       await this.cli.rpush(processQueueName, item);
     }
-    return { scheduledAt: dateformat(new Date(time * 1000), 'yyyy-mm-dd HH:MM:ss') };
+    return {
+      scheduledAt: format.asString('yyyy-MM-dd hh:mm:ss.SSS',
+        new Date(time * 1000)),
+    };
   }
 
   async disconnectAll() {
