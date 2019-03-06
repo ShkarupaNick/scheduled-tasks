@@ -9,12 +9,7 @@ services:
     ports:
       - "6380:6380"
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    deploy:
-      mode: replicated
-      replicas: 3
+    image: shkarupanick/scheduled-tasks:scheduleAtTime
     depends_on:
       - redis
     ports:

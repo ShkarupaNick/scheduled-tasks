@@ -50,13 +50,6 @@ npm start
 |WAIT_QUEUE_BATCH_SIZE| Batch size (Number of records, which can be processed by one poll)|
 
 
-##### Limitations:
-npm test can be used only with redis local instance
-
-##### TODO list:
-1) full covering by unit test
-
-
 ##How to run application using Docker compose
 
 [Compose](https://docs.docker.com/compose/overview/) is a tool for defining and running multi-container Docker applications. 
@@ -76,12 +69,7 @@ services:
     ports:
       - "6380:6380"
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    deploy:
-      mode: replicated
-      replicas: 3
+    image: shkarupanick/scheduled-tasks:scheduleAtTime
     depends_on:
       - redis
     ports:
@@ -91,3 +79,11 @@ services:
 You can change `replicas` property of app container for managing number of application instances.
 
 You can use docker-compose [run](https://docs.docker.com/compose/reference/run/) command for container starting.
+
+
+Also you can easy scale application using next command:
+`docker-compose scale redis=1 app=3`
+
+##### Limitations:
+You can use only one redis instance (scale redis=1). Redis cluster is not configured yet.
+
