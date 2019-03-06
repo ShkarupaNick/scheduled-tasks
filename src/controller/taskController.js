@@ -13,7 +13,6 @@ module.exports = {
       res.status(400).send();
       return;
     }
-    log.info('Got POST request: %j', req.body);
     const result = await req.taskAdapter.publishTaskAfterDelay(req.body.message,
       req.body.scheduledTimeDelay);
     log.trace('Response of echoAfterDelay controller: %j', result);

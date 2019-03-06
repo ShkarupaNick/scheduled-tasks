@@ -7,7 +7,7 @@
     "start": "NODE_ENV=production node ./src/runner.js",
     "lint": "eslint --fix .",
     "pretest": "npm run lint",
-    "test": "LOG_LEVEL=trace NODE_ENV=test ./node_modules/mocha ./spec/integration",
+    "test": "LOG_LEVEL=trace NODE_ENV=test mocha ./spec/integration",
     "test:integration": "LOG_LEVEL=trace NODE_ENV=test ./node_modules/mocha/bin/mocha ./spec/integration/** --timeout 50000",
     "dev": "LOG_LEVEL=trace DEBUG=ioredis:* NODE_ENV=development node ./src/runner.js"
   },
@@ -17,6 +17,7 @@
     "body-parser": "1.18.3",
     "bunyan": "1.8.12",
     "bunyan-format": "0.2.1",
+    "dateformat": "^3.0.3",
     "express": "4.16.4",
     "ioredis": "4.6.2",
     "lodash": "4.17.11",

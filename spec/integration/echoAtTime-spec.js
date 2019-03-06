@@ -6,7 +6,6 @@ const config = require('../../config');
 
 const processQueueName = config.get('PROCESS_QUEUE_NAME');
 const waitQueueName = config.get('WAIT_QUEUE_NAME');
-
 const badRequestError = {
   code: 400,
   message: 'Can not find echoAtTime property. Please check request...',
@@ -70,12 +69,12 @@ describe('routes', () => {
   it('planning for future', (done) => {
     const inputMessage = {
       message: 'Test Message',
-      echoAtTime: '2099-03-04 15:16:37.413',
+      echoAtTime: '2099-03-04 15:16:37',
     };
     request(expressApp)
       .post('/tasks/echoAtTime')
       .send(inputMessage)
-      .expect(200, { scheduledAt: '2099-03-04T15:16:37.413Z' })
+      .expect(200, { scheduledAt: '2099-03-04 15:16:37' })
       .end(async (err) => {
         if (err) {
           return done(err);
@@ -91,12 +90,12 @@ describe('routes', () => {
   it('planning for past', (done) => {
     const inputMessage = {
       message: 'Test Message',
-      echoAtTime: '2001-03-04 15:16:37.413',
+      echoAtTime: '2001-03-04 15:16:37',
     };
     request(expressApp)
       .post('/tasks/echoAtTime')
       .send(inputMessage)
-      .expect(200, { scheduledAt: '2001-03-04T15:16:37.413Z' })
+      .expect(200, { scheduledAt: '2001-03-04 15:16:37' })
       .end(async (err) => {
         if (err) {
           return done(err);
