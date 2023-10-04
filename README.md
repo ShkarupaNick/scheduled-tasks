@@ -1,4 +1,4 @@
-# scheduled-tasks test
+# scheduled-tasks
 application can schedule tasks for some time or with some delay
 
 Application has two endpoints:
