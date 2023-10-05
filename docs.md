@@ -1,4 +1,4 @@
-# scheduled-tasks
+# scheduled-tasks app
 application can schedule tasks for some time or with some delay
 
 Application has two endpoints:
